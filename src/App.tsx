@@ -1,11 +1,11 @@
-// your-app-name/src/App.js
 import React from 'react';
+
 import './App.css';
 import fetchGraphQL from './fetchGraphQl';
 
 const { useState, useEffect } = React;
 
-function App() {
+function Repository() {
   // We'll load the name of a repository, initially setting it to null
   const [name, setName] = useState(null);
 
@@ -39,12 +39,19 @@ function App() {
   }, []);
 
   // Render "Loading" until the query completes
+  return(
+    <p>
+      {name != null ? `Repository: ${name}` : "Loading"}
+    </p>
+  );
+}
+
+function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          {name != null ? `Repository: ${name}` : "Loading"}
-        </p>
+        <Repository />
+        <Repository />
       </header>
     </div>
   );
