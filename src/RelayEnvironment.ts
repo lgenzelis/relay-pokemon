@@ -4,7 +4,7 @@ import fetchGraphQL from './fetchGraphQl';
 // Relay passes a "params" object with the query name and text. So we define a helper function
 // to call our fetchGraphQl utility with params.text.
 async function fetchRelay(params: any, variables?: any) {
-  console.log(`fetching query ${params.name} with ${JSON.stringify(variables)}`);
+  console.log(`fetching query ${params.name} with variables ${JSON.stringify(variables)}`);
   return fetchGraphQL(params.text, variables);
 }
 
