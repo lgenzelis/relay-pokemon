@@ -1,0 +1,7 @@
+schema: https://graphql-pokemon2.vercel.app/
+extensions:
+  codegen:
+    generates:
+      ./schema.graphql:
+        plugins:
+          - schema-ast

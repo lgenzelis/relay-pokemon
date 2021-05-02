@@ -20,8 +20,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn run relay && react-scripts build",
-    "relay": "relay-compiler --schema schema.graphql --src ./src --language typescript --artifactDirectory ./src/__generated__ --watch",
+    "build": "yarn run relay --watch false && react-scripts build",
+    "graphql-schema": "graphql codegen",
+    "relay": "yarn graphql-schema && relay-compiler --schema schema.graphql --src ./src --language typescript --artifactDirectory ./src/__generated__ --watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -44,10 +45,13 @@
     ]
   },
   "devDependencies": {
+    "@graphql-cli/codegen": "^1.17.23",
+    "@graphql-codegen/schema-ast": "^1.18.2",
     "@types/react-relay": "^11.0.1",
     "@types/relay-runtime": "^11.0.0",
     "babel-plugin-relay": "^11.0.2",
     "graphql": "^15.5.0",
+    "graphql-cli": "^4.1.0",
     "relay-compiler": "^11.0.2",
     "relay-compiler-language-typescript": "^14.0.0"
   }

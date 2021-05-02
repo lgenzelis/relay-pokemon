@@ -8,30 +8,32 @@ import {
 
 import './App.css';
 import RelayEnvironment from './RelayEnvironment';
-import { AppRepositoryNameQuery } from './__generated__/AppRepositoryNameQuery.graphql'
+import { AppPokemonQuery } from './__generated__/AppPokemonQuery.graphql'
 
 // Define a query
-const RepositoryNameQuery = graphql`
-    query AppRepositoryNameQuery {
-        repository(owner: "lgenzelis", name: "next-barebone") {
-            name,
-            createdAt
-        }
+const PokemonQuery = graphql`
+  query AppPokemonQuery {
+    pokemon(name: "pikachu") {
+      id
+      number
+      name
     }
+  }
 `;
 
 // Immediately load the query as our app starts. For a real app, we'd move this
 // into our routing configuration, preloading data as we transition to new routes.
-const preloadedQuery = loadQuery<AppRepositoryNameQuery>(RelayEnvironment, RepositoryNameQuery, {
+const preloadedQuery = loadQuery<AppPokemonQuery>(RelayEnvironment, PokemonQuery, {
   /* query variables */
 });
 
-function Repository() {
-  const data = usePreloadedQuery(RepositoryNameQuery, preloadedQuery);
+function Pokemon() {
+  const data = usePreloadedQuery(PokemonQuery, preloadedQuery);
+  console.log('~~~ data', data)
 
   return(
     <p>
-      Repository: <strong>{data.repository?.name}</strong>
+      Repository: <strong>{`${data.pokemon?.number} - ${data.pokemon?.name}`}</strong>
     </p>
   );
 }
@@ -53,7 +55,7 @@ function App() {
     const intervalId = setInterval(() => {
       setRepos(_repos => [..._repos, repo_id]);
       repo_id++;
-      if (repo_id > 5) {
+      if (repo_id > 0) {
         clearInterval(intervalId);
       }
     }, 3000)
@@ -62,7 +64,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {repos.map(repoId => <Repository key={repoId} />)}
+        {repos.map(repoId => <Pokemon key={repoId} />)}
       </header>
     </div>
   );
