@@ -50,6 +50,7 @@
     "@types/react-relay": "^11.0.1",
     "@types/relay-runtime": "^11.0.0",
     "babel-plugin-relay": "^11.0.2",
+    "eslint-plugin-relay": "^1.8.2",
     "graphql": "^15.5.0",
     "graphql-cli": "^4.1.0",
     "relay-compiler": "^11.0.2",

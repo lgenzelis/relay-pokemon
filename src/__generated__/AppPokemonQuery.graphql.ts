@@ -3,12 +3,14 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type AppPokemonQueryVariables = {};
+import { FragmentRefs } from "relay-runtime";
+export type AppPokemonQueryVariables = {
+    name: string;
+};
 export type AppPokemonQueryResponse = {
     readonly pokemon: {
         readonly id: string;
-        readonly number: string | null;
-        readonly name: string | null;
+        readonly " $fragmentRefs": FragmentRefs<"PokemonFragment">;
     } | null;
 };
 export type AppPokemonQuery = {
@@ -19,82 +21,114 @@ export type AppPokemonQuery = {
 
 
 /*
-query AppPokemonQuery {
-  pokemon(name: "pikachu") {
+query AppPokemonQuery(
+  $name: String!
+) {
+  pokemon(name: $name) {
     id
-    number
-    name
+    ...PokemonFragment
   }
+}
+
+fragment PokemonFragment on Pokemon {
+  name
+  number
 }
 */
 
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Literal",
-        "name": "name",
-        "value": "pikachu"
-      }
-    ],
-    "concreteType": "Pokemon",
-    "kind": "LinkedField",
-    "name": "pokemon",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "number",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      }
-    ],
-    "storageKey": "pokemon(name:\"pikachu\")"
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "name"
   }
-];
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "name",
+    "variableName": "name"
+  }
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "AppPokemonQuery",
-    "selections": (v0/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Pokemon",
+        "kind": "LinkedField",
+        "name": "pokemon",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "PokemonFragment"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AppPokemonQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Pokemon",
+        "kind": "LinkedField",
+        "name": "pokemon",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "number",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "f5285e4a036b6895d39618e53764f1c3",
+    "cacheID": "42361dc508aaf9749ae81e9eb8ac9381",
     "id": null,
     "metadata": {},
     "name": "AppPokemonQuery",
     "operationKind": "query",
-    "text": "query AppPokemonQuery {\n  pokemon(name: \"pikachu\") {\n    id\n    number\n    name\n  }\n}\n"
+    "text": "query AppPokemonQuery(\n  $name: String!\n) {\n  pokemon(name: $name) {\n    id\n    ...PokemonFragment\n  }\n}\n\nfragment PokemonFragment on Pokemon {\n  name\n  number\n}\n"
   }
 };
 })();
-(node as any).hash = 'bd6d77f1fcf00734e5a5e5e88033c47e';
+(node as any).hash = 'b1cd3b631a995e2e95786c253eef1f8b';
 export default node;
