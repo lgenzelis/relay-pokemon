@@ -2,18 +2,18 @@ import React, { Suspense, useEffect, useState } from 'react'
 import { PreloadedQuery, useQueryLoader } from 'react-relay/hooks'
 
 import './App.css';
-import Pokemon, { pokemonQuery } from './Pokemon/Pokemon'
-import { AppPokemonQuery } from './__generated__/AppPokemonQuery.graphql'
+import Pokemon from './Pokemon/Pokemon'
 import PokeSearch from './Pokemon/PokeSearch'
+import pokemonQuery, { PokemonQuery } from './Pokemon/__generated__/PokemonQuery.graphql'
 
 interface AppProps {
-  appQueryRef: PreloadedQuery<AppPokemonQuery>
+  appQueryRef: PreloadedQuery<PokemonQuery>
   defaultPokemon: string;
 }
 
 function App({ appQueryRef, defaultPokemon }: AppProps) {
   const [pokemonName, setPokemonName] = useState(defaultPokemon)
-  const [queryReference, loadQuery] = useQueryLoader<AppPokemonQuery>(pokemonQuery, appQueryRef);
+  const [queryReference, loadQuery] = useQueryLoader(pokemonQuery, appQueryRef);
 
   useEffect(() => {
     if (pokemonName) {

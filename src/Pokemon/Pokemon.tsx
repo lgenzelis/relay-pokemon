@@ -1,29 +1,27 @@
 import { PreloadedQuery, usePreloadedQuery } from 'react-relay/hooks';
-
-import { AppPokemonQuery } from '../__generated__/AppPokemonQuery.graphql';
-import PokeImage from './PokeImage';
 import graphql from 'babel-plugin-relay/macro'
 
-export const pokemonQuery = graphql`
-    query PokemonQuery($name: String!) {
-        pokemon(name: $name) {
-            name
-            number
-            ...PokeImageFragment
-        }
-    }
-`
+import { PokemonQuery } from './__generated__/PokemonQuery.graphql'
+import PokeImage from './PokeImage';
 
 interface PokemonProps {
-  pokemonQueryRef: PreloadedQuery<AppPokemonQuery>
+  pokemonQueryRef: PreloadedQuery<PokemonQuery>
 }
 
 export default function Pokemon ({ pokemonQueryRef }: PokemonProps) {
-  const pokemonData = usePreloadedQuery(pokemonQuery, pokemonQueryRef);
+  const pokemonData = usePreloadedQuery(graphql`
+    query PokemonQuery($name: String!) {
+      pokemon(name: $name) {
+        name
+        number
+        ...PokeImageFragment
+      }
+    }
+  `, pokemonQueryRef);
   console.log({ pokemonData })
 
   if (!pokemonData.pokemon) {
-    return <span>Pokewhat?</span>;
+    return <span>PokeWHAT?</span>;
   }
 
   return(
