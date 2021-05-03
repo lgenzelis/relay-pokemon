@@ -1,48 +1,33 @@
-import { useEffect, useState } from 'react'
-import graphql from 'babel-plugin-relay/macro';
-import { PreloadedQuery, usePreloadedQuery } from 'react-relay/hooks'
+import React, { Suspense, useEffect, useState } from 'react'
+import { PreloadedQuery, useQueryLoader } from 'react-relay/hooks'
 
 import './App.css';
-import Pokemon from './Pokemon'
+import Pokemon, { pokemonQuery } from './Pokemon/Pokemon'
 import { AppPokemonQuery } from './__generated__/AppPokemonQuery.graphql'
+import PokeSearch from './Pokemon/PokeSearch'
 
 interface AppProps {
   appQueryRef: PreloadedQuery<AppPokemonQuery>
+  defaultPokemon: string;
 }
 
-export const appPokemonQuery = graphql`
-  query AppPokemonQuery($name: String!) {
-    pokemon(name: $name) {
-      id
-      ...PokemonFragment
-    }
-  }
-`
-
-function App({ appQueryRef }: AppProps) {
-  const data = usePreloadedQuery(appPokemonQuery, appQueryRef);
-
-  console.log({ appPokemonData: data })
-
-  const [repos, setRepos] = useState<number[]>([]);
+function App({ appQueryRef, defaultPokemon }: AppProps) {
+  const [pokemonName, setPokemonName] = useState(defaultPokemon)
+  const [queryReference, loadQuery] = useQueryLoader<AppPokemonQuery>(pokemonQuery, appQueryRef);
 
   useEffect(() => {
-    let repo_id = 0;
-    const intervalId = setInterval(() => {
-      setRepos(_repos => [..._repos, repo_id]);
-      repo_id++;
-      if (repo_id > 0) {
-        clearInterval(intervalId);
-      }
-    }, 300)
-  }, []);
+    if (pokemonName) {
+      loadQuery({ name: pokemonName.toLowerCase() });
+    }
+  }, [loadQuery, pokemonName]);
 
   return (
     <div className="App">
       <header className="App-header">
-        {repos.map(repoId => data.pokemon && (
-          <Pokemon pokemon={data.pokemon} key={data.pokemon.id} />
-        ))}
+        <PokeSearch defaultPokemon={defaultPokemon} setPokemonName={setPokemonName}/>
+        <Suspense fallback={'Loading...'}>
+          {queryReference && <Pokemon pokemonQueryRef={queryReference} />}
+        </Suspense>
       </header>
     </div>
   );

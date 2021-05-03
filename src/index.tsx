@@ -1,22 +1,23 @@
-import React, { Suspense } from 'react'
+import * as React  from 'react'
 import ReactDOM from 'react-dom';
 import { loadQuery, RelayEnvironmentProvider } from 'react-relay/hooks'
 
 import './index.css';
-import App, { appPokemonQuery } from './App'
+import App  from './App'
 import RelayEnvironment from './RelayEnvironment'
 import { AppPokemonQuery } from './__generated__/AppPokemonQuery.graphql'
+import { pokemonQuery } from './Pokemon/Pokemon'
 
-const preloadedQuery = loadQuery<AppPokemonQuery>(RelayEnvironment, appPokemonQuery, {
-  name: 'Vulpix'
+const defaultPokemon = 'pikachu';
+
+const preloadedQuery = loadQuery<AppPokemonQuery>(RelayEnvironment, pokemonQuery, {
+  name: defaultPokemon
 });
 
 ReactDOM.render(
   <React.StrictMode>
     <RelayEnvironmentProvider environment={RelayEnvironment}>
-      <Suspense fallback={'Loading...'}>
-        <App appQueryRef={preloadedQuery} />
-      </Suspense>
+      <App appQueryRef={preloadedQuery} defaultPokemon={defaultPokemon}/>
     </RelayEnvironmentProvider>
   </React.StrictMode>,
   document.getElementById('root')

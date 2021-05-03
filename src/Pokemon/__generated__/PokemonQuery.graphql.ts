@@ -4,33 +4,32 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type AppPokemonQueryVariables = {
+export type PokemonQueryVariables = {
     name: string;
 };
-export type AppPokemonQueryResponse = {
+export type PokemonQueryResponse = {
     readonly pokemon: {
-        readonly id: string;
         readonly name: string | null;
         readonly number: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PokeImageFragment">;
     } | null;
 };
-export type AppPokemonQuery = {
-    readonly response: AppPokemonQueryResponse;
-    readonly variables: AppPokemonQueryVariables;
+export type PokemonQuery = {
+    readonly response: PokemonQueryResponse;
+    readonly variables: PokemonQueryVariables;
 };
 
 
 
 /*
-query AppPokemonQuery(
+query PokemonQuery(
   $name: String!
 ) {
   pokemon(name: $name) {
-    id
     name
     number
     ...PokeImageFragment
+    id
   }
 }
 
@@ -59,17 +58,10 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -81,7 +73,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppPokemonQuery",
+    "name": "PokemonQuery",
     "selections": [
       {
         "alias": null,
@@ -93,7 +85,6 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -110,7 +101,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "AppPokemonQuery",
+    "name": "PokemonQuery",
     "selections": [
       {
         "alias": null,
@@ -122,12 +113,18 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "image",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
         ],
@@ -136,14 +133,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e9e37021e58db918b1ea4bb76c2cbe5d",
+    "cacheID": "0657354321f7e3e65a4114e3ea0250bc",
     "id": null,
     "metadata": {},
-    "name": "AppPokemonQuery",
+    "name": "PokemonQuery",
     "operationKind": "query",
-    "text": "query AppPokemonQuery(\n  $name: String!\n) {\n  pokemon(name: $name) {\n    id\n    name\n    number\n    ...PokeImageFragment\n  }\n}\n\nfragment PokeImageFragment on Pokemon {\n  image\n  name\n}\n"
+    "text": "query PokemonQuery(\n  $name: String!\n) {\n  pokemon(name: $name) {\n    name\n    number\n    ...PokeImageFragment\n    id\n  }\n}\n\nfragment PokeImageFragment on Pokemon {\n  image\n  name\n}\n"
   }
 };
 })();
-(node as any).hash = '69318eb1f2f3c279847f8c9f24b5eb76';
+(node as any).hash = '60663f734308397cc3bbc44fa1b028d3';
 export default node;

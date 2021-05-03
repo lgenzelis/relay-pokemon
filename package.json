@@ -22,7 +22,7 @@
     "start": "react-scripts start",
     "build": "yarn run relay --watch false && react-scripts build",
     "graphql-schema": "graphql codegen",
-    "relay": "yarn graphql-schema && relay-compiler --schema schema.graphql --src ./src --language typescript --artifactDirectory ./src/__generated__ --watch",
+    "relay": "yarn graphql-schema && relay-compiler --schema schema.graphql --src ./src --language typescript --extensions js jsx ts tsx --watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

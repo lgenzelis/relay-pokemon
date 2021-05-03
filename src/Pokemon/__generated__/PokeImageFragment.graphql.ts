@@ -4,15 +4,15 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type PokemonFragment = {
+export type PokeImageFragment = {
+    readonly image: string | null;
     readonly name: string | null;
-    readonly number: string | null;
-    readonly " $refType": "PokemonFragment";
+    readonly " $refType": "PokeImageFragment";
 };
-export type PokemonFragment$data = PokemonFragment;
-export type PokemonFragment$key = {
-    readonly " $data"?: PokemonFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"PokemonFragment">;
+export type PokeImageFragment$data = PokeImageFragment;
+export type PokeImageFragment$key = {
+    readonly " $data"?: PokeImageFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"PokeImageFragment">;
 };
 
 
@@ -21,25 +21,25 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "PokemonFragment",
+  "name": "PokeImageFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "name",
+      "name": "image",
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "number",
+      "name": "name",
       "storageKey": null
     }
   ],
   "type": "Pokemon",
   "abstractKey": null
 };
-(node as any).hash = '19eb7fa3746056b7a2c5323a48a6f349';
+(node as any).hash = '13b413ea0cbee90a1e416ff8ed431dc0';
 export default node;
